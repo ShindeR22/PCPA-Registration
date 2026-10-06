@@ -2,24 +2,29 @@ async function downloadPass(format) {
   const qrImage = document.querySelector("#pass-qr");
   try {
     const logoImage = new Image();
-    logoImage.src = new URL("../logos/Logo%20pcmc.png", import.meta.url).href;
+    logoImage.src = new URL("../logos/Logo_pcmc1.png", import.meta.url).href;
     if (!logoImage.complete) {
       await new Promise((resolve, reject) => {
         logoImage.addEventListener("load", resolve, { once: true });
         logoImage.addEventListener("error", reject, { once: true });
       });
     }
-    if (!logoImage.naturalWidth) throw new Error("Association logo did not load");
+    if (!logoImage.naturalWidth)
+      throw new Error("Association logo did not load");
 
     const shutterCloudLogo = new Image();
-    shutterCloudLogo.src = new URL("../logos/shuttercloud-logo.png", import.meta.url).href;
+    shutterCloudLogo.src = new URL(
+      "../logos/shuttercloud-logo.png",
+      import.meta.url,
+    ).href;
     if (!shutterCloudLogo.complete) {
       await new Promise((resolve, reject) => {
         shutterCloudLogo.addEventListener("load", resolve, { once: true });
         shutterCloudLogo.addEventListener("error", reject, { once: true });
       });
     }
-    if (!shutterCloudLogo.naturalWidth) throw new Error("ShutterCloud logo did not load");
+    if (!shutterCloudLogo.naturalWidth)
+      throw new Error("ShutterCloud logo did not load");
 
     if (!qrImage.complete) {
       await new Promise((resolve, reject) => {
@@ -64,21 +69,34 @@ async function downloadPass(format) {
     context.fillText("ENTRY CODE", 450, 694);
     context.fillStyle = navy;
     context.font = "700 43px Arial, sans-serif";
-    context.fillText(document.querySelector("#entry-code").textContent, 450, 751);
+    context.fillText(
+      document.querySelector("#entry-code").textContent,
+      450,
+      751,
+    );
 
     context.fillStyle = "#8291a5";
     context.font = "700 19px Arial, sans-serif";
     context.fillText("PASS HOLDER", 450, 819);
     context.fillStyle = "#263c5d";
     context.font = "600 34px Arial, sans-serif";
-    context.fillText(document.querySelector("#pass-attendee").textContent, 450, 870, 740);
+    context.fillText(
+      document.querySelector("#pass-attendee").textContent,
+      450,
+      870,
+      740,
+    );
 
     context.fillStyle = "#8291a5";
     context.font = "700 18px Arial, sans-serif";
     context.fillText("PHONE NUMBER", 450, 914);
     context.fillStyle = "#263c5d";
     context.font = "600 25px Arial, sans-serif";
-    context.fillText(document.querySelector("#pass-phone").textContent, 450, 950);
+    context.fillText(
+      document.querySelector("#pass-phone").textContent,
+      450,
+      950,
+    );
     context.fillStyle = "#4d6687";
     context.font = "600 22px Arial, sans-serif";
     context.fillText("1 November 2026", 450, 1000);
@@ -91,7 +109,11 @@ async function downloadPass(format) {
     context.setLineDash([]);
     context.fillStyle = "#627792";
     context.font = "20px Arial, sans-serif";
-    context.fillText("Present this QR code at the entrance for check-in.", 450, 1082);
+    context.fillText(
+      "Present this QR code at the entrance for check-in.",
+      450,
+      1082,
+    );
     const poweredLabel = "POWERED BY";
     const brandName = "Shutter";
     const brandSuffix = "Cloud";
@@ -102,10 +124,19 @@ async function downloadPass(format) {
     context.fillStyle = "#233d65";
     context.font = "700 19px Arial, sans-serif";
     const brandWidth =
-      context.measureText(brandName).width + context.measureText(brandSuffix).width;
+      context.measureText(brandName).width +
+      context.measureText(brandSuffix).width;
     const logoWidth = 30;
     const logoGap = 6;
-    let footerX = 450 - (poweredWidth + footerGap + logoGap + logoWidth + footerGap + brandWidth) / 2;
+    let footerX =
+      450 -
+      (poweredWidth +
+        footerGap +
+        logoGap +
+        logoWidth +
+        footerGap +
+        brandWidth) /
+        2;
     context.textAlign = "left";
     context.font = "600 16px Arial, sans-serif";
     context.fillText(poweredLabel, footerX, 1130);
@@ -120,24 +151,32 @@ async function downloadPass(format) {
 
     const mimeType = format === "jpeg" ? "image/jpeg" : "image/png";
     const extension = format === "jpeg" ? "jpg" : "png";
-    canvas.toBlob((blob) => {
-      if (!blob) {
-        alert("Could not create the pass image. Please try again.");
-        return;
-      }
-      const link = document.createElement("a");
-      link.href = URL.createObjectURL(blob);
-      link.download = `${document.querySelector("#entry-code").textContent}.${extension}`;
-      link.click();
-      setTimeout(() => URL.revokeObjectURL(link.href), 1000);
-    }, mimeType, 0.94);
+    canvas.toBlob(
+      (blob) => {
+        if (!blob) {
+          alert("Could not create the pass image. Please try again.");
+          return;
+        }
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = `${document.querySelector("#entry-code").textContent}.${extension}`;
+        link.click();
+        setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+      },
+      mimeType,
+      0.94,
+    );
   } catch (error) {
-    alert("The QR code could not be loaded. Please check your internet connection and try again.");
+    alert(
+      "The QR code could not be loaded. Please check your internet connection and try again.",
+    );
   }
 }
 
 export function initPassDownload() {
   document.querySelectorAll("[data-download-format]").forEach((button) => {
-    button.addEventListener("click", () => downloadPass(button.dataset.downloadFormat));
+    button.addEventListener("click", () =>
+      downloadPass(button.dataset.downloadFormat),
+    );
   });
 }

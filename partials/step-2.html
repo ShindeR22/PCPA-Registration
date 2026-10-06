@@ -1,0 +1,87 @@
+<section
+            class="step details-step"
+            data-step="2"
+            aria-labelledby="step-title"
+            hidden
+          >
+            <div class="details-intro">
+              <div class="section-icon person-icon" aria-hidden="true">
+                <svg viewBox="0 0 32 32">
+                  <circle cx="16" cy="10" r="6" />
+                  <path d="M5 28v-3a11 11 0 0 1 22 0v3z" />
+                </svg>
+              </div>
+              <div class="details-intro-copy">
+                <h1 id="step-title">Your Details</h1>
+                <p class="step-description">
+                  Please fill in your information<br class="desktop-break" />
+                  to complete your registration.
+                </p>
+              </div>
+            </div>
+            <div class="input-group">
+              <label for="first-name">First Name <b>*</b></label>
+              <div class="icon-input">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <circle cx="12" cy="8" r="4" />
+                  <path d="M4 21v-2a8 8 0 0 1 16 0v2z" /></svg
+                ><input
+                  id="first-name"
+                  name="firstName"
+                  type="text"
+                  autocomplete="given-name"
+                  placeholder="Enter your first name"
+                  aria-describedby="first-name-error"
+                />
+              </div>
+              <span
+                class="field-error"
+                id="first-name-error"
+                role="alert"
+              ></span>
+            </div>
+            <div class="input-group">
+              <label for="last-name">Last Name <b>*</b></label>
+              <div class="icon-input">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <circle cx="12" cy="8" r="4" />
+                  <path d="M4 21v-2a8 8 0 0 1 16 0v2z" /></svg
+                ><input
+                  id="last-name"
+                  name="lastName"
+                  type="text"
+                  autocomplete="family-name"
+                  placeholder="Enter your last name"
+                  aria-describedby="last-name-error"
+                />
+              </div>
+              <span
+                class="field-error"
+                id="last-name-error"
+                role="alert"
+              ></span>
+            </div>
+            <div class="input-group">
+              <label for="address">Address <b>*</b></label>
+              <div class="icon-input textarea-wrap">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z" />
+                  <circle cx="12" cy="10" r="2.5" /></svg
+                ><textarea
+                  id="address"
+                  name="address"
+                  autocomplete="street-address"
+                  placeholder="House no, Street, Area"
+                  rows="2"
+                  aria-describedby="address-error"
+                ></textarea>
+              </div>
+              <span class="field-error" id="address-error" role="alert"></span>
+            </div>
+            <button class="primary-button next-button" type="submit">
+              Next <span aria-hidden="true">→</span>
+            </button>
+            <button class="back-button" type="button" data-back="2">
+              <span aria-hidden="true">←</span> Back
+            </button>
+          </section>

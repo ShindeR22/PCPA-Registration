@@ -1,0 +1,106 @@
+<section
+            class="step active"
+            data-step="1"
+            aria-labelledby="step-title"
+          >
+            <div class="phone-intro">
+              <div class="section-icon phone-icon" aria-hidden="true">
+                <svg viewBox="0 0 32 32">
+                  <rect x="8" y="3" width="16" height="26" rx="3" />
+                  <path d="M12 6h8M14 25h4" />
+                </svg>
+              </div>
+              <div class="phone-intro-copy">
+                <h1 id="step-title">Enter Mobile Number</h1>
+                <p class="step-description">
+                  We’ll send your registration details<br
+                    class="desktop-break"
+                  />
+                  and event updates on WhatsApp.
+                </p>
+              </div>
+            </div>
+            <label class="sr-only" for="phone">Mobile number</label>
+            <div class="phone-field" id="phone-field">
+              <span class="country-code">+91</span
+              ><span class="field-divider"></span
+              ><input
+                id="phone"
+                name="phone"
+                type="tel"
+                inputmode="numeric"
+                autocomplete="tel-national"
+                placeholder="Mobile Number"
+                maxlength="10"
+                aria-describedby="phone-error"
+              />
+            </div>
+            <span class="field-error" id="phone-error" role="alert"></span>
+            <fieldset
+              class="role-fieldset"
+              aria-describedby="role-hint role-error"
+            >
+              <legend>Which best describes you?</legend>
+              <p id="role-hint">Select all that apply</p>
+              <div class="role-options">
+                <label class="role-option"
+                  ><input
+                    type="checkbox"
+                    name="roles"
+                    value="Photographer"
+                  /><span>Photographer</span></label
+                >
+                <label class="role-option"
+                  ><input
+                    type="checkbox"
+                    name="roles"
+                    value="Videographer"
+                  /><span>Videographer</span></label
+                >
+                <label class="role-option"
+                  ><input
+                    type="checkbox"
+                    name="roles"
+                    value="Cinematographer"
+                  /><span>Cinematographer</span></label
+                >
+                <label class="role-option"
+                  ><input
+                    type="checkbox"
+                    name="roles"
+                    value="Video Editor"
+                  /><span>Video editor</span></label
+                >
+                <label class="role-option"
+                  ><input
+                    type="checkbox"
+                    name="roles"
+                    value="Album Designer"
+                  /><span>Album designer</span></label
+                >
+                <label class="role-option"
+                  ><input
+                    type="checkbox"
+                    name="roles"
+                    value="Other"
+                    id="other-role"
+                  /><span>Other</span></label
+                >
+              </div>
+              <span class="field-error" id="role-error" role="alert"></span>
+            </fieldset>
+            <button class="primary-button" type="button" data-next="1">
+              Next <span aria-hidden="true">→</span>
+            </button>
+            <!-- <div class="privacy-box">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <rect x="5" y="10" width="14" height="11" rx="2" />
+                <path d="M8 10V7a4 4 0 0 1 8 0v3" />
+                <circle cx="12" cy="15" r="1" /></svg
+              >
+              <span
+                >Your number is safe with us.<br />We won’t share it with
+                anyone.</span
+              >
+            </div> -->
+          </section>

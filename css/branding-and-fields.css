@@ -1,0 +1,239 @@
+.powered-by {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  margin: auto 0 0;
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+.powered-label {
+  color: #8a9ab0;
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+}
+.shuttercloud-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  color: #233d65;
+}
+.shuttercloud-brand img {
+  width: 25px;
+  height: 18px;
+  object-fit: contain;
+}
+.shuttercloud-brand b {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+.shuttercloud-brand b span {
+  color: #3285df;
+}
+.stall-marquee {
+  margin: -3px -21px 18px;
+  padding: 0 0 12px;
+  border-bottom: 1px solid #e4ebf4;
+  overflow: hidden;
+}
+.stall-heading {
+  display: block;
+  margin: 0 21px 9px;
+  color: #71839b;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+}
+.stall-window {
+  overflow: hidden;
+}
+.stall-track {
+  display: flex;
+  width: max-content;
+  animation: stall-scroll 24s linear infinite;
+}
+.stall-marquee:hover .stall-track {
+  animation-play-state: paused;
+}
+.stall-set {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding-right: 24px;
+}
+.stall-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #263c5d;
+  white-space: nowrap;
+}
+.logo-mark {
+  width: 25px;
+  height: 25px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  color: white;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 800;
+}
+.stall-logo b {
+  font-size: 8px;
+  letter-spacing: 0.04em;
+}
+.stall-logo b span {
+  color: #7385a0;
+  margin-left: 2px;
+}
+.mark-lens {
+  background: #205c91;
+}
+.mark-frame {
+  background: #bd5b3e;
+  border-radius: 5px;
+}
+.mark-pixel {
+  background: #7652a1;
+  border-radius: 5px;
+}
+.mark-focus {
+  background: #30866e;
+  font-size: 18px;
+}
+.mark-shutter {
+  background: #d39b24;
+}
+@keyframes stall-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .stall-track {
+    animation: none;
+  }
+}
+.phone-intro {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  margin: 7px 0 18px;
+}
+.phone-intro .section-icon {
+  flex: 0 0 56px;
+  margin: 0;
+}
+.phone-intro-copy {
+  min-width: 0;
+}
+.phone-intro h1 {
+  margin: 0 0 4px;
+  font-size: 18px;
+}
+.phone-intro .step-description {
+  margin: 0;
+  font-size: 11px;
+}
+.details-intro {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  margin: 0 0 14px;
+}
+.details-intro .section-icon {
+  flex: 0 0 56px;
+  margin: 0;
+}
+.details-intro-copy {
+  min-width: 0;
+}
+.details-intro h1 {
+  margin: 0 0 4px;
+  font-size: 18px;
+}
+.details-intro .step-description {
+  margin: 0;
+  font-size: 11px;
+}
+.role-fieldset {
+  border: 0;
+  margin: 14px 0 4px;
+  padding: 0;
+}
+.role-fieldset legend {
+  padding: 0;
+  color: #172d51;
+  font-size: 12px;
+  font-weight: 700;
+}
+.role-fieldset > p {
+  margin: 3px 0 8px;
+  color: #71839b;
+  font-size: 10px;
+}
+.role-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 7px;
+}
+.role-option {
+  min-height: 35px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 8px;
+  border: 1px solid #d7e1ee;
+  border-radius: 7px;
+  color: #304969;
+  font-size: 10px;
+  cursor: pointer;
+}
+.role-option:has(input:checked) {
+  border-color: #4383e8;
+  background: #eff5ff;
+  color: #0755c9;
+}
+.role-option input {
+  width: 14px;
+  height: 14px;
+  flex: none;
+  margin: 0;
+  accent-color: #0860ed;
+}
+@media (max-width: 480px) {
+  body {
+    display: block;
+    height: auto;
+    min-height: 100dvh;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+  .app-shell {
+    height: auto;
+    min-height: 100dvh;
+    overflow: visible;
+  }
+  .registration-card {
+    flex: 1 1 auto;
+    min-height: auto;
+    overflow: visible;
+    padding: 14px 16px 18px;
+  }
+  .stepper {
+    margin-bottom: 14px;
+  }
+  .phone-intro,
+  .details-step .step-description {
+    margin-bottom: 10px;
+  }
+  .input-group {
+    margin-bottom: 10px;
+  }
+}

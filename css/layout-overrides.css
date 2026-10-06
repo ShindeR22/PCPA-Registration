@@ -1,0 +1,101 @@
+/* Shared page and form styling */
+.app-shell {
+  height: auto;
+  max-height: none;
+}
+.app-shell:not(.pass-visible) .event-poster {
+  height: 260px;
+}
+.registration-card {
+  padding: 14px 18px 16px;
+}
+.phone-intro {
+  margin-bottom: 12px;
+}
+.role-fieldset {
+  margin-top: 9px;
+}
+.role-options {
+  gap: 6px;
+}
+.privacy-box {
+  margin-top: 14px;
+}
+.phone-field {
+  height: 55px;
+  border-color: #aebfd4;
+  border-radius: 9px;
+}
+.phone-field input {
+  font-size: 14px;
+}
+.field-divider {
+  background: #b9c8da;
+}
+.input-group {
+  margin-bottom: 15px;
+}
+.input-group label {
+  margin-bottom: 7px;
+  color: #102c54;
+  font-size: 12px;
+}
+.icon-input {
+  min-height: 47px;
+  border-color: #aebfd4;
+  border-radius: 8px;
+}
+.icon-input input {
+  height: 45px;
+  font-size: 12px;
+}
+.icon-input textarea {
+  min-height: 55px;
+  font-size: 12px;
+}
+.icon-input input::placeholder,
+.icon-input textarea::placeholder,
+.phone-field input::placeholder {
+  color: #687e9c;
+}
+.role-option {
+  min-height: 39px;
+  border-color: #b7c7da;
+  font-size: 11px;
+}
+.role-option input {
+  width: 16px;
+  height: 16px;
+}
+
+.event-poster-image {
+  display: none;
+}
+.app-shell.pass-visible .event-poster {
+  height: auto;
+  min-height: 0;
+  padding: 0;
+  overflow: hidden;
+  background: #fff;
+}
+.app-shell.pass-visible .event-poster::before,
+.app-shell.pass-visible .event-poster::after {
+  content: none;
+}
+.app-shell.pass-visible .poster-topline,
+.app-shell.pass-visible .poster-headline,
+.app-shell.pass-visible .poster-ribbon,
+.app-shell.pass-visible .poster-date,
+.app-shell.pass-visible .poster-caption,
+.app-shell.pass-visible .camera,
+.app-shell.pass-visible .poster-spark {
+  display: none;
+}
+.app-shell.pass-visible .event-poster-image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.completion-step {
+  text-align: center;
+}

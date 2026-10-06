@@ -1,0 +1,239 @@
+.pass-success-mark {
+  width: 40px;
+  height: 40px;
+  display: inline-grid;
+  place-items: center;
+  margin: 0 8px 10px 0;
+  vertical-align: middle;
+  border-radius: 50%;
+  background: #e3f8ec;
+  color: #0a9c68;
+  font-size: 23px;
+  font-weight: 700;
+}
+.completion-step h1 {
+  display: inline-block;
+  margin: 0 0 10px;
+  font-size: 21px;
+  vertical-align: middle;
+}
+.completion-step .completion-copy {
+  margin: 0 auto 12px;
+  color: #607491;
+  font-size: 11px;
+  line-height: 1.45;
+}
+.entry-pass {
+  overflow: hidden;
+  border: 1px solid #d8e3ef;
+  border-radius: 10px;
+  background: #fff;
+  text-align: left;
+  box-shadow: 0 5px 16px #17365e0d;
+}
+.entry-pass-heading {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 10px 12px;
+  background: #102c54;
+  color: #fff;
+}
+.pass-kicker {
+  font-size: 7px;
+  letter-spacing: 0.08em;
+  opacity: 0.75;
+}
+.entry-pass-heading strong {
+  font-size: 11px;
+  letter-spacing: 0.04em;
+}
+.entry-pass-body {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 11px 12px 8px;
+}
+.pass-qr-frame {
+  width: 108px;
+  flex: 0 0 108px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 4px;
+  border: 1px solid #e5ebf2;
+  border-radius: 5px;
+  background: white;
+}
+.pass-qr-code {
+  color: #102c54;
+  font-size: 11px;
+  line-height: 1;
+  letter-spacing: 0.12em;
+}
+.pass-qr-frame img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+}
+.pass-information {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.pass-powered-by {
+  margin: 0;
+  padding: 7px 8px;
+  border-top: 1px solid #e5ebf2;
+}
+.pass-field-label {
+  color: #8291a5;
+  font-size: 7px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+.pass-code {
+  margin-top: 3px;
+  color: #102c54;
+  font-size: 14px;
+  letter-spacing: 0.04em;
+}
+.attendee-label {
+  margin-top: 12px;
+}
+.pass-attendee {
+  overflow-wrap: anywhere;
+  margin-top: 3px;
+  color: #263c5d;
+  font-size: 11px;
+}
+.pass-phone {
+  margin-top: 3px;
+  color: #263c5d;
+  font-size: 10px;
+}
+.pass-date {
+  margin-top: 8px;
+  color: #4d6687;
+  font-size: 9px;
+}
+.pass-instruction {
+  margin: 0;
+  padding: 8px 10px;
+  border-top: 1px dashed #d8e3ef;
+  color: #627792;
+  text-align: center;
+  font-size: 9px;
+}
+.completion-footnote {
+  margin: 9px 0 0;
+  color: #8392a5;
+  font-size: 9px;
+}
+.pass-download-button {
+  margin-top: 10px;
+  height: 43px;
+  font-size: 11px;
+}
+.pass-contacts {
+  margin-top: 12px;
+  padding: 12px 13px;
+  border: 1px solid #dce6f2;
+  border-radius: 9px;
+  background: #edf4fd;
+  text-align: left;
+}
+.pass-contacts h2 {
+  margin: 0 0 9px;
+  color: #102c54;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+}
+.pass-contacts-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px 12px;
+}
+.pass-contacts-grid p {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: 0;
+  color: #203b5f;
+  font-size: 11px;
+  line-height: 1.3;
+}
+.pass-contacts-grid strong {
+  font-size: 11px;
+}
+.pass-contacts-grid span {
+  color: #344f72;
+  font-size: 10px;
+  font-weight: 600;
+}
+.pass-download-button {
+  margin-top: 10px;
+  height: 43px;
+  font-size: 11px;
+}
+@media print {
+  @page {
+    margin: 14mm;
+  }
+  body {
+    display: block;
+    min-height: 0;
+    padding: 0;
+    background: #fff;
+  }
+  .app-shell {
+    width: 100%;
+    height: auto;
+    min-height: 0;
+    max-height: none;
+    overflow: visible;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+  .event-poster,
+  .step:not(.completion-step),
+  .powered-by,
+  .app-footer,
+  .pass-download-button,
+  .completion-footnote {
+    display: none !important;
+  }
+  .registration-card {
+    display: block;
+    margin: 0;
+    padding: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+  .completion-step,
+  .completion-step[hidden] {
+    display: block !important;
+    width: 100%;
+    max-width: 430px;
+    margin: 0 auto;
+    padding: 0;
+  }
+  .entry-pass {
+    border: 1px solid #aab8c9;
+    box-shadow: none;
+    break-inside: avoid;
+  }
+  .pass-qr-frame {
+    width: 145px;
+    height: 145px;
+    flex-basis: 145px;
+  }
+  .entry-pass-heading {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+}

@@ -1,0 +1,335 @@
+:root {
+  font-family: "DM Sans", sans-serif;
+  color: #10264b;
+  background: #eef2f7;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  --navy: #10264b;
+  --blue: #0860ed;
+  --soft-blue: #edf4ff;
+  --line: #cfdbeb;
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  padding: 0 16px;
+  display: grid;
+  place-items: center;
+  background: radial-gradient(
+    ellipse at 50% 10%,
+    #fff 0,
+    #f5f7fa 55%,
+    #e8edf4 100%
+  );
+}
+button,
+input,
+textarea {
+  font: inherit;
+}
+.app-shell {
+  width: min(100%, 430px);
+  min-height: min(900px, calc(100vh - 68px));
+  background: #fff;
+  border: 0;
+  border-radius: 23px;
+  overflow: hidden;
+  box-shadow: 0 22px 65px #0b234426;
+  display: flex;
+  flex-direction: column;
+}
+.status-bar {
+  height: 38px;
+  flex: none;
+  background: linear-gradient(110deg, #0d2546, #17365e);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  font-size: 14px;
+  font-weight: 700;
+}
+.status-icons {
+  width: 54px;
+  height: 17px;
+  display: block;
+}
+.status-icons svg {
+  height: 100%;
+  width: 100%;
+  fill: #fff;
+}
+.event-poster {
+  height: 285px;
+  flex: none;
+  position: relative;
+  overflow: hidden;
+  padding: 16px 17px 14px;
+  background:
+    radial-gradient(ellipse at 18% 78%, #e9f6ff 0 9%, transparent 30%),
+    radial-gradient(ellipse at 95% 60%, #fef0dc 0 7%, transparent 25%),
+    linear-gradient(145deg, #fff 0%, #fff 68%, #eef7ff 100%);
+  border-bottom: 1px solid #dbe4ee;
+}
+.event-poster:before,
+.event-poster:after {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  pointer-events: none;
+}
+.event-poster:before {
+  width: 210px;
+  height: 145px;
+  left: -95px;
+  bottom: -65px;
+  transform: rotate(22deg);
+  background: linear-gradient(
+    15deg,
+    #078de1 0 15%,
+    #b22d9c 16% 27%,
+    #ffcb21 28% 40%,
+    transparent 41%
+  );
+  filter: blur(1px);
+  opacity: 0.9;
+}
+.event-poster:after {
+  width: 175px;
+  height: 155px;
+  right: -120px;
+  bottom: -53px;
+  transform: rotate(-28deg);
+  background: linear-gradient(
+    10deg,
+    #08b9d3 0 19%,
+    #1266dc 20% 39%,
+    #fa2584 40% 50%,
+    transparent 51%
+  );
+}
+.poster-topline {
+  height: 62px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+  z-index: 2;
+}
+.association-mark {
+  width: 70px;
+  height: 60px;
+  flex: none;
+  object-fit: contain;
+}
+.association-name {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+}
+.association-name strong {
+  font:
+    700 13px "Oswald",
+    sans-serif;
+  color: #172b52;
+  white-space: nowrap;
+}
+.association-name span {
+  font:
+    700 10px "Oswald",
+    sans-serif;
+  color: #d52749;
+  white-space: nowrap;
+}
+.association-name small {
+  font-size: 6px;
+  letter-spacing: 0.3em;
+  text-align: center;
+  margin-top: 5px;
+  color: #192d4e;
+}
+.coming-soon {
+  margin-left: auto;
+  position: relative;
+  padding: 5px 7px;
+  background: #f7d928;
+  border: 2px solid #ed3847;
+  transform: rotate(5deg);
+  box-shadow: 2px 3px 0 #153d87;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  color: #e62936;
+  line-height: 0.95;
+}
+.coming-soon small {
+  font:
+    700 9px "Oswald",
+    sans-serif;
+}
+.coming-soon strong {
+  font:
+    700 17px "Oswald",
+    sans-serif;
+  color: #143a91;
+}
+.coming-soon span {
+  position: absolute;
+  font-size: 19px;
+  right: -15px;
+  top: -10px;
+  color: #e52e4a;
+}
+.poster-headline {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  flex-wrap: wrap;
+  line-height: 0.98;
+  margin: 10px 0 5px;
+  font-family: "Oswald", sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.045em;
+}
+.headline-photo,
+.headline-video {
+  font-size: 32px;
+}
+.headline-photo {
+  color: #f04c31;
+}
+.headline-amp {
+  font-size: 25px;
+  color: #132c57;
+  margin: 0 3px;
+}
+.headline-video {
+  color: #0873d8;
+}
+.poster-headline > strong {
+  flex-basis: 100%;
+  text-align: center;
+  font:
+    700 45px/0.98 "Oswald",
+    sans-serif;
+  letter-spacing: -0.035em;
+  background: linear-gradient(90deg, #ec2549, #812aa1 48%, #165bd3);
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+}
+.poster-ribbon {
+  position: relative;
+  z-index: 2;
+  margin: 6px auto 8px;
+  background: #ffd127;
+  color: #13264a;
+  width: max-content;
+  max-width: 100%;
+  padding: 4px 12px;
+  font:
+    700 9px "Oswald",
+    sans-serif;
+  letter-spacing: 0.08em;
+  clip-path: polygon(3% 0, 100% 0, 97% 100%, 0 100%);
+}
+.poster-date {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+  color: #172b50;
+}
+.poster-date strong {
+  font:
+    700 19px "Oswald",
+    sans-serif;
+  letter-spacing: 0.015em;
+}
+.calendar-icon {
+  width: 21px;
+  height: 22px;
+  border: 2px solid #ed3f54;
+  border-radius: 4px;
+  position: relative;
+  background: repeating-linear-gradient(0deg, #fff 0 5px, #e6edfc 6px 7px);
+}
+.calendar-icon:before {
+  content: "";
+  position: absolute;
+  left: 2px;
+  right: 2px;
+  top: -4px;
+  border-top: 3px solid #1462d8;
+}
+.calendar-icon b,
+.calendar-icon i {
+  position: absolute;
+  width: 2px;
+  height: 5px;
+  top: -6px;
+  background: #1462d8;
+}
+.calendar-icon b {
+  left: 4px;
+}
+.calendar-icon i {
+  right: 4px;
+}
+.poster-caption {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  margin: 7px 0 0;
+  font-size: 8px;
+  line-height: 1.45;
+  font-weight: 700;
+  color: #182c4e;
+}
+.poster-caption b {
+  color: #e62c4e;
+}
+.camera {
+  position: absolute;
+  z-index: 1;
+  color: #162942;
+  text-shadow: 0 0 0 #000;
+  font-size: 47px;
+  bottom: 22px;
+  opacity: 0.94;
+}
+.camera-left {
+  left: -13px;
+  transform: rotate(-20deg);
+}
+.camera-right {
+  right: -12px;
+  transform: rotate(20deg);
+}
+.poster-spark {
+  position: absolute;
+  color: #ec2c48;
+  z-index: 1;
+}
+.spark-one {
+  right: 16px;
+  top: 62px;
+  font-size: 20px;
+}
+.spark-two {
+  left: 9px;
+  top: 150px;
+  color: #f8b51a;
+  font-size: 15px;
+}

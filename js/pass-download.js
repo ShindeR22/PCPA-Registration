@@ -14,7 +14,7 @@ async function downloadPass(format) {
 
     const shutterCloudLogo = new Image();
     shutterCloudLogo.src = new URL(
-      "../logos/shuttercloud-logo.png",
+      "./logos/shuttercloud-logo.png",
       import.meta.url,
     ).href;
     if (!shutterCloudLogo.complete) {

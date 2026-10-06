@@ -907,7 +907,13 @@
       }
       @media (max-width: 480px) {
         .app-shell {
-          height: auto;
+          height: 100dvh;
+          min-height: 0;
+        }
+        .registration-card {
+          min-height: 0;
+          overflow-y: auto;
+          overscroll-behavior: contain;
         }
       }
     </style>

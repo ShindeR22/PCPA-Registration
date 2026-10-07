@@ -1,4 +1,11 @@
-import { createEntryCode } from "./utils.js";
+import { checkPhone } from "../api/phone.js";
+import { registerVisitor } from "../api/register.js";
+
+function getPassName(result) {
+  return typeof result?.name === "string" && result.name.trim()
+    ? result.name.trim()
+    : "Registered visitor";
+}
 
 export function initRegistration() {
   const form = document.querySelector("#registration-form");
@@ -32,7 +39,7 @@ export function initRegistration() {
     if (error) error.textContent = message;
   }
 
-  document.querySelector("[data-next='1']").addEventListener("click", () => {
+  document.querySelector("[data-next='1']").addEventListener("click", async (event) => {
     const phone = document.querySelector("#phone");
     const digits = phone.value.replace(/\D/g, "");
     const phoneField = document.querySelector("#phone-field");
@@ -56,8 +63,41 @@ export function initRegistration() {
     }
     roleError.textContent = "";
     phoneField.classList.remove("invalid");
-    document.querySelector("#phone-error").textContent = "";
-    showStep(2);
+    const phoneError = document.querySelector("#phone-error");
+    const nextButton = event.currentTarget;
+    const originalButtonText = nextButton.innerHTML;
+    phoneError.textContent = "";
+    nextButton.disabled = true;
+    nextButton.textContent = "Checking number…";
+
+    try {
+      const result = await checkPhone(digits);
+
+      if (result.isRegistered) {
+        const passId = String(result.passId);
+        const registeredPhone = String(result.phone || digits).replace(/\D/g, "");
+        document.querySelector("#entry-code").textContent = passId;
+        document.querySelector("#qr-entry-code").textContent = passId;
+        document.querySelector("#pass-attendee").textContent = getPassName(result);
+        const formattedPhone = `+91 ${registeredPhone.slice(0, 5)} ${registeredPhone.slice(5)}`;
+        document.querySelector("#pass-phone").textContent = formattedPhone;
+        const qrImage = document.querySelector("#pass-qr");
+        qrImage.crossOrigin = "anonymous";
+        qrImage.src = `https://api.qrserver.com/v1/create-qr-code/?size=220x220&format=png&margin=1&data=${encodeURIComponent(passId)}`;
+        showStep(3);
+        return;
+      }
+
+      showStep(2);
+    } catch (error) {
+      phoneError.textContent =
+        error instanceof TypeError
+          ? "Unable to connect to the registration service. Please try again. If the problem continues, contact support."
+          : error.message || "We couldn't verify this number. Please try again.";
+    } finally {
+      nextButton.disabled = false;
+      nextButton.innerHTML = originalButtonText;
+    }
   });
 
   document.querySelectorAll("input[name='roles']").forEach((checkbox) => {
@@ -75,7 +115,7 @@ export function initRegistration() {
   document
     .querySelector("[data-back='2']")
     .addEventListener("click", () => showStep(1));
-  form.addEventListener("submit", (event) => {
+  form.addEventListener("submit", async (event) => {
     event.preventDefault();
     const firstName = document.querySelector("#first-name");
     const lastName = document.querySelector("#last-name");
@@ -108,21 +148,51 @@ export function initRegistration() {
       return;
     }
 
-    const entryCode = createEntryCode();
-    document.querySelector("#entry-code").textContent = entryCode;
-    document.querySelector("#qr-entry-code").textContent = entryCode;
-    document.querySelector("#pass-attendee").textContent =
-      `${cleanFirstName} ${cleanLastName}`;
-    const phoneDigits = document
-      .querySelector("#phone")
-      .value.replace(/\D/g, "");
-    const formattedPhone = `+91 ${phoneDigits.slice(0, 5)} ${phoneDigits.slice(5)}`;
-    document.querySelector("#pass-phone").textContent = formattedPhone;
-    const qrData = encodeURIComponent(entryCode);
-    const qrImage = document.querySelector("#pass-qr");
-    qrImage.crossOrigin = "anonymous";
-    qrImage.src = `https://api.qrserver.com/v1/create-qr-code/?size=220x220&format=png&margin=1&data=${qrData}`;
-    showStep(3);
+    const submitButton = form.querySelector("[type='submit']");
+    const originalButtonText = submitButton.innerHTML;
+    const registerError = document.querySelector("#register-error");
+    const phoneDigits = document.querySelector("#phone").value.replace(/\D/g, "");
+    const professions = [
+      ...document.querySelectorAll("input[name='roles']:checked"),
+    ].map((role) => role.value);
+
+    registerError.textContent = "";
+    submitButton.disabled = true;
+    submitButton.textContent = "Submitting registration…";
+
+    try {
+      const result = await registerVisitor({
+        firstName: cleanFirstName,
+        lastName: cleanLastName,
+        phone: phoneDigits,
+        address: cleanAddress,
+        professions,
+      });
+
+      if (result.passId === undefined || result.passId === null) {
+        throw new Error("Registration succeeded, but the pass ID was missing. Please contact support.");
+      }
+
+      const passId = String(result.passId);
+      const registeredPhone = String(result.phone || phoneDigits).replace(/\D/g, "");
+      document.querySelector("#entry-code").textContent = passId;
+      document.querySelector("#qr-entry-code").textContent = passId;
+      document.querySelector("#pass-attendee").textContent = getPassName(result);
+      document.querySelector("#pass-phone").textContent =
+        `+91 ${registeredPhone.slice(0, 5)} ${registeredPhone.slice(5)}`;
+      const qrImage = document.querySelector("#pass-qr");
+      qrImage.crossOrigin = "anonymous";
+      qrImage.src = `https://api.qrserver.com/v1/create-qr-code/?size=220x220&format=png&margin=1&data=${encodeURIComponent(passId)}`;
+      showStep(3);
+    } catch (error) {
+      registerError.textContent =
+        error instanceof TypeError
+          ? "Unable to connect to the registration service. Please try again. If the problem continues, contact support."
+          : error.message || "We couldn't complete your registration. Please try again.";
+    } finally {
+      submitButton.disabled = false;
+      submitButton.innerHTML = originalButtonText;
+    }
   });
 
   document

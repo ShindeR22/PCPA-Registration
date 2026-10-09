@@ -2,6 +2,9 @@ import { checkPhone } from "../api/phone.js";
 import { registerVisitor } from "../api/register.js";
 
 function getPassName(result) {
+  if (typeof result?.ownerName === "string" && result.ownerName.trim()) {
+    return result.ownerName.trim();
+  }
   return typeof result?.name === "string" && result.name.trim()
     ? result.name.trim()
     : "Registered visitor";
@@ -117,20 +120,20 @@ export function initRegistration() {
     .addEventListener("click", () => showStep(1));
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
-    const firstName = document.querySelector("#first-name");
-    const lastName = document.querySelector("#last-name");
+    const ownerName = document.querySelector("#owner-name");
+    const studioName = document.querySelector("#studio-name");
     const address = document.querySelector("#address");
-    const cleanFirstName = firstName.value.trim();
-    const cleanLastName = lastName.value.trim();
+    const cleanOwnerName = ownerName.value.trim();
+    const cleanStudioName = studioName.value.trim();
     const cleanAddress = address.value.trim();
 
     setError(
-      firstName,
-      cleanFirstName.length < 2 ? "Please enter your first name." : "",
+      ownerName,
+      cleanOwnerName.length < 2 ? "Please enter the owner's name." : "",
     );
     setError(
-      lastName,
-      cleanLastName.length < 2 ? "Please enter your last name." : "",
+      studioName,
+      cleanStudioName.length < 2 ? "Please enter your studio name." : "",
     );
     setError(
       address,
@@ -138,11 +141,11 @@ export function initRegistration() {
     );
 
     if (
-      cleanFirstName.length < 2 ||
-      cleanLastName.length < 2 ||
+      cleanOwnerName.length < 2 ||
+      cleanStudioName.length < 2 ||
       cleanAddress.length < 5
     ) {
-      [firstName, lastName, address]
+      [ownerName, studioName, address]
         .find((field) => field.classList.contains("invalid"))
         ?.focus();
       return;
@@ -162,8 +165,8 @@ export function initRegistration() {
 
     try {
       const result = await registerVisitor({
-        firstName: cleanFirstName,
-        lastName: cleanLastName,
+        ownerName: cleanOwnerName,
+        studioName: cleanStudioName,
         phone: phoneDigits,
         address: cleanAddress,
         professions,
@@ -196,7 +199,7 @@ export function initRegistration() {
   });
 
   document
-    .querySelectorAll("#first-name, #last-name, #address")
+    .querySelectorAll("#owner-name, #studio-name, #address")
     .forEach((field) => {
       field.addEventListener("input", () => setError(field, ""));
     });

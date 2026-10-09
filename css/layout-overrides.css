@@ -68,9 +68,11 @@
   height: 16px;
 }
 
-.event-poster-image {
+.event-poster-image,
+.event-poster-image-second {
   display: none;
 }
+.app-shell.second-poster-visible .event-poster,
 .app-shell.pass-visible .event-poster {
   height: auto;
   min-height: 0;
@@ -78,10 +80,19 @@
   overflow: hidden;
   background: #fff;
 }
+.app-shell.second-poster-visible .event-poster::before,
+.app-shell.second-poster-visible .event-poster::after,
 .app-shell.pass-visible .event-poster::before,
 .app-shell.pass-visible .event-poster::after {
   content: none;
 }
+.app-shell.second-poster-visible .poster-topline,
+.app-shell.second-poster-visible .poster-headline,
+.app-shell.second-poster-visible .poster-ribbon,
+.app-shell.second-poster-visible .poster-date,
+.app-shell.second-poster-visible .poster-caption,
+.app-shell.second-poster-visible .camera,
+.app-shell.second-poster-visible .poster-spark,
 .app-shell.pass-visible .poster-topline,
 .app-shell.pass-visible .poster-headline,
 .app-shell.pass-visible .poster-ribbon,
@@ -92,6 +103,11 @@
   display: none;
 }
 .app-shell.pass-visible .event-poster-image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.app-shell.second-poster-visible .event-poster-image-second {
   display: block;
   width: 100%;
   height: auto;

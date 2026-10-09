@@ -10,6 +10,21 @@ function getPassName(result) {
     : "Registered visitor";
 }
 
+function withIndiaCountryCode(phone) {
+  const digits = String(phone).replace(/\D/g, "");
+  return digits.startsWith("91") && digits.length === 12
+    ? digits
+    : `91${digits}`;
+}
+
+function formatIndianPhone(phone) {
+  const digits = String(phone).replace(/\D/g, "");
+  const nationalNumber = digits.startsWith("91") && digits.length === 12
+    ? digits.slice(2)
+    : digits;
+  return `+91 ${nationalNumber.slice(0, 5)} ${nationalNumber.slice(5)}`;
+}
+
 export function initRegistration() {
   const form = document.querySelector("#registration-form");
   const steps = [...document.querySelectorAll(".step")];
@@ -76,19 +91,16 @@ export function initRegistration() {
       nextButton.textContent = "Checking number…";
 
       try {
-        const result = await checkPhone(digits);
+        const result = await checkPhone(withIndiaCountryCode(digits));
 
         if (result.isRegistered) {
           const passId = String(result.passId);
-          const registeredPhone = String(result.phone || digits).replace(
-            /\D/g,
-            "",
-          );
+          const registeredPhone = result.phone || withIndiaCountryCode(digits);
           document.querySelector("#entry-code").textContent = passId;
           document.querySelector("#qr-entry-code").textContent = passId;
           document.querySelector("#pass-attendee").textContent =
             getPassName(result);
-          const formattedPhone = `+91 ${registeredPhone.slice(0, 5)} ${registeredPhone.slice(5)}`;
+          const formattedPhone = formatIndianPhone(registeredPhone);
           document.querySelector("#pass-phone").textContent = formattedPhone;
           const qrImage = document.querySelector("#pass-qr");
           qrImage.crossOrigin = "anonymous";
@@ -176,7 +188,7 @@ export function initRegistration() {
       const result = await registerVisitor({
         ownerName: cleanOwnerName,
         studioName: cleanStudioName,
-        phone: phoneDigits,
+        phone: withIndiaCountryCode(phoneDigits),
         address: cleanAddress,
         professions,
       });
@@ -188,16 +200,13 @@ export function initRegistration() {
       }
 
       const passId = String(result.passId);
-      const registeredPhone = String(result.phone || phoneDigits).replace(
-        /\D/g,
-        "",
-      );
+      const registeredPhone = result.phone || withIndiaCountryCode(phoneDigits);
       document.querySelector("#entry-code").textContent = passId;
       document.querySelector("#qr-entry-code").textContent = passId;
       document.querySelector("#pass-attendee").textContent =
         getPassName(result);
       document.querySelector("#pass-phone").textContent =
-        `+91 ${registeredPhone.slice(0, 5)} ${registeredPhone.slice(5)}`;
+        formatIndianPhone(registeredPhone);
       const qrImage = document.querySelector("#pass-qr");
       qrImage.crossOrigin = "anonymous";
       qrImage.src = `https://api.qrserver.com/v1/create-qr-code/?size=220x220&format=png&margin=1&data=${encodeURIComponent(passId)}`;

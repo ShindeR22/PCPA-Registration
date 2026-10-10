@@ -25,6 +25,18 @@ function formatIndianPhone(phone) {
   return `+91 ${nationalNumber.slice(0, 5)} ${nationalNumber.slice(5)}`;
 }
 
+function getPhoneFromPath() {
+  const segment =
+    new URLSearchParams(window.location.search).get("phone") ||
+    window.location.pathname.split("/").filter(Boolean).at(-1);
+  if (!segment || !/^\d{10,12}$/.test(segment)) return null;
+
+  const digits = segment.length === 12 && segment.startsWith("91")
+    ? segment.slice(2)
+    : segment;
+  return /^[6-9]\d{9}$/.test(digits) ? digits : null;
+}
+
 export function initRegistration() {
   const form = document.querySelector("#registration-form");
   const steps = [...document.querySelectorAll(".step")];
@@ -49,6 +61,33 @@ export function initRegistration() {
     document
       .querySelector(".registration-card")
       .scrollIntoView({ behavior: "smooth", block: "nearest" });
+  }
+
+  function displayPass(result, fallbackPhone) {
+    const passId = String(result.passId);
+    const registeredPhone = result.phone || withIndiaCountryCode(fallbackPhone);
+    document.querySelector("#entry-code").textContent = passId;
+    document.querySelector("#qr-entry-code").textContent = passId;
+    document.querySelector("#pass-attendee").textContent = getPassName(result);
+    document.querySelector("#pass-phone").textContent =
+      formatIndianPhone(registeredPhone);
+    const qrImage = document.querySelector("#pass-qr");
+    qrImage.crossOrigin = "anonymous";
+    qrImage.src = `https://api.qrserver.com/v1/create-qr-code/?size=220x220&format=png&margin=1&data=${encodeURIComponent(passId)}`;
+    showStep(3);
+  }
+
+  const urlPhone = getPhoneFromPath();
+  if (urlPhone) {
+    checkPhone(withIndiaCountryCode(urlPhone))
+      .then((result) => {
+        if (result.isRegistered && result.passId !== undefined && result.passId !== null) {
+          displayPass(result, urlPhone);
+        }
+      })
+      .catch((error) => {
+        console.error("Could not load the pass from the URL:", error);
+      });
   }
 
   function setError(field, message) {
@@ -94,18 +133,7 @@ export function initRegistration() {
         const result = await checkPhone(withIndiaCountryCode(digits));
 
         if (result.isRegistered) {
-          const passId = String(result.passId);
-          const registeredPhone = result.phone || withIndiaCountryCode(digits);
-          document.querySelector("#entry-code").textContent = passId;
-          document.querySelector("#qr-entry-code").textContent = passId;
-          document.querySelector("#pass-attendee").textContent =
-            getPassName(result);
-          const formattedPhone = formatIndianPhone(registeredPhone);
-          document.querySelector("#pass-phone").textContent = formattedPhone;
-          const qrImage = document.querySelector("#pass-qr");
-          qrImage.crossOrigin = "anonymous";
-          qrImage.src = `https://api.qrserver.com/v1/create-qr-code/?size=220x220&format=png&margin=1&data=${encodeURIComponent(passId)}`;
-          showStep(3);
+          displayPass(result, digits);
           return;
         }
 
@@ -199,18 +227,7 @@ export function initRegistration() {
         );
       }
 
-      const passId = String(result.passId);
-      const registeredPhone = result.phone || withIndiaCountryCode(phoneDigits);
-      document.querySelector("#entry-code").textContent = passId;
-      document.querySelector("#qr-entry-code").textContent = passId;
-      document.querySelector("#pass-attendee").textContent =
-        getPassName(result);
-      document.querySelector("#pass-phone").textContent =
-        formatIndianPhone(registeredPhone);
-      const qrImage = document.querySelector("#pass-qr");
-      qrImage.crossOrigin = "anonymous";
-      qrImage.src = `https://api.qrserver.com/v1/create-qr-code/?size=220x220&format=png&margin=1&data=${encodeURIComponent(passId)}`;
-      showStep(3);
+      displayPass(result, phoneDigits);
     } catch (error) {
       registerError.textContent =
         error instanceof TypeError

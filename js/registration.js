@@ -25,10 +25,14 @@ function formatIndianPhone(phone) {
 }
 
 function getPhoneFromPath() {
-  const segment =
+  // Shared links sometimes encode the phone as `?phone=/917...` (or with
+  // other separators). Normalize those URL forms before validating the number.
+  const rawPhone =
     new URLSearchParams(window.location.search).get("phone") ||
     window.location.pathname.split("/").filter(Boolean).at(-1);
-  if (!segment || !/^\d{10,12}$/.test(segment)) return null;
+  if (!rawPhone) return null;
+  const segment = rawPhone.replace(/\D/g, "");
+  if (!/^\d{10,12}$/.test(segment)) return null;
 
   const digits =
     segment.length === 12 && segment.startsWith("91")
@@ -79,6 +83,7 @@ export function initRegistration() {
 
   const urlPhone = getPhoneFromPath();
   if (urlPhone) {
+    document.querySelector("#phone").value = urlPhone;
     checkPhone(withIndiaCountryCode(urlPhone))
       .then((result) => {
         if (

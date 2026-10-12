@@ -209,7 +209,7 @@
 }
 @media (max-width: 480px) {
   .app-shell:not(.pass-visible) .event-poster {
-    height: 230px;
+    height: 272px;
   }
 
   .stall-marquee {

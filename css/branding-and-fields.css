@@ -208,10 +208,6 @@
   accent-color: #0860ed;
 }
 @media (max-width: 480px) {
-  .app-shell.pass-visible .event-poster {
-    display: none;
-  }
-
   .app-shell:not(.pass-visible) .event-poster {
     height: 230px;
   }

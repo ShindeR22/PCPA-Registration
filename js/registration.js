@@ -19,9 +19,8 @@ function withIndiaCountryCode(phone) {
 
 function formatIndianPhone(phone) {
   const digits = String(phone).replace(/\D/g, "");
-  const nationalNumber = digits.startsWith("91") && digits.length === 12
-    ? digits.slice(2)
-    : digits;
+  const nationalNumber =
+    digits.startsWith("91") && digits.length === 12 ? digits.slice(2) : digits;
   return `+91 ${nationalNumber.slice(0, 5)} ${nationalNumber.slice(5)}`;
 }
 
@@ -31,9 +30,10 @@ function getPhoneFromPath() {
     window.location.pathname.split("/").filter(Boolean).at(-1);
   if (!segment || !/^\d{10,12}$/.test(segment)) return null;
 
-  const digits = segment.length === 12 && segment.startsWith("91")
-    ? segment.slice(2)
-    : segment;
+  const digits =
+    segment.length === 12 && segment.startsWith("91")
+      ? segment.slice(2)
+      : segment;
   return /^[6-9]\d{9}$/.test(digits) ? digits : null;
 }
 
@@ -81,7 +81,11 @@ export function initRegistration() {
   if (urlPhone) {
     checkPhone(withIndiaCountryCode(urlPhone))
       .then((result) => {
-        if (result.isRegistered && result.passId !== undefined && result.passId !== null) {
+        if (
+          result.isRegistered &&
+          result.passId !== undefined &&
+          result.passId !== null
+        ) {
           displayPass(result, urlPhone);
         }
       })

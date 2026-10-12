@@ -82,7 +82,7 @@
   font-weight: 800;
 }
 .stall-logo b {
-  font-size: 8px;
+  font-size: 10px;
   letter-spacing: 0.04em;
 }
 .stall-logo b span {
@@ -208,6 +208,19 @@
   accent-color: #0860ed;
 }
 @media (max-width: 480px) {
+  .app-shell.pass-visible .event-poster {
+    display: none;
+  }
+
+  .app-shell:not(.pass-visible) .event-poster {
+    height: 230px;
+  }
+
+  .stall-marquee {
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+  }
+
   body {
     display: block;
     height: auto;
@@ -224,16 +237,48 @@
     flex: 1 1 auto;
     min-height: auto;
     overflow: visible;
-    padding: 14px 16px 18px;
+    padding: 10px 16px 12px;
   }
   .stepper {
-    margin-bottom: 14px;
+    margin-bottom: 9px;
+  }
+  .section-icon {
+    width: 44px;
+    height: 44px;
+    margin-top: 2px;
+    margin-bottom: 6px;
+  }
+  .section-icon svg {
+    width: 25px;
+    height: 25px;
   }
   .phone-intro,
   .details-step .step-description {
-    margin-bottom: 10px;
+    margin-bottom: 7px;
   }
   .input-group {
-    margin-bottom: 10px;
+    margin-bottom: 7px;
+  }
+  .phone-field {
+    height: 47px;
+  }
+  .role-fieldset {
+    margin-top: 6px;
+  }
+  .role-options {
+    gap: 5px;
+  }
+  .role-option {
+    min-height: 35px;
+  }
+  .primary-button {
+    min-height: 46px;
+  }
+  .back-button {
+    height: 38px;
+    margin-top: 5px;
+  }
+  .powered-by {
+    padding-top: 8px;
   }
 }

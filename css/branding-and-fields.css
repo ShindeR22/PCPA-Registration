@@ -208,6 +208,16 @@
   accent-color: #0860ed;
 }
 @media (max-width: 480px) {
+  body.phone-keyboard-open .app-shell .event-poster,
+  body.phone-keyboard-open .stall-marquee {
+    display: none;
+  }
+
+  body.phone-keyboard-open .registration-card {
+    margin-top: 0;
+    padding-top: 10px;
+  }
+
   .app-shell:not(.pass-visible) .event-poster {
     height: 272px;
   }

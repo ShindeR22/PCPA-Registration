@@ -46,6 +46,34 @@ export function initRegistration() {
   const steps = [...document.querySelectorAll(".step")];
   let currentStep = 1;
 
+  const phone = document.querySelector("#phone");
+  const registrationCard = document.querySelector(".registration-card");
+  let keyboardCloseTimer;
+
+  function keepPhoneAndRolesVisible() {
+    if (window.matchMedia("(max-width: 480px)").matches) {
+      document.body.classList.add("phone-keyboard-open");
+      requestAnimationFrame(() => {
+        registrationCard.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    }
+  }
+
+  phone.addEventListener("focus", () => {
+    clearTimeout(keyboardCloseTimer);
+    keepPhoneAndRolesVisible();
+  });
+  phone.addEventListener("blur", () => {
+    // Wait for the on-screen keyboard to close before restoring the page header.
+    keyboardCloseTimer = setTimeout(() => {
+      document.body.classList.remove("phone-keyboard-open");
+    }, 250);
+  });
+
+  window.visualViewport?.addEventListener("resize", () => {
+    if (document.activeElement === phone) keepPhoneAndRolesVisible();
+  });
+
   function showStep(nextStep) {
     currentStep = nextStep;
     const shell = document.querySelector(".app-shell");
